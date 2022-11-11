@@ -10,7 +10,7 @@ namespace WebApplication.Models
         public int app_id { get; set; }
         public string appName { get; set; }
         public double appPrice { get; set; }
-        public double appRate { get; set; }
+        public int appAgeLimit { get; set; }
         public byte[] appImage { get; set; }
 
         public modelApp(apps app)
@@ -18,7 +18,7 @@ namespace WebApplication.Models
             app_id = app.app_id;
             appName = app.appName;
             appPrice = (double)app.appPrice;
-            appRate = (double)app.appRate;
+            appAgeLimit = (int)app.appAgeLimit;
             appImage = app.appImage;
         }
     }

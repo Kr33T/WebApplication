@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище appStore_MorozovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище appStore_MorozovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="apps">
           <Key>
             <PropertyRef Name="app_id" />
@@ -12,17 +12,19 @@
           <Property Name="app_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="appName" Type="nvarchar" MaxLength="50" />
           <Property Name="appPrice" Type="float" />
-          <Property Name="appRate" Type="float" />
+          <Property Name="appAgeLimit" Type="int" />
           <Property Name="appImage" Type="varbinary(max)" />
         </EntityType>
         <EntityContainer Name="Хранилище appStore_MorozovModelContainer">
           <EntitySet Name="apps" EntityType="Self.apps" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="appStore_MorozovModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="appStore_MorozovEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="apps" EntityType="appStore_MorozovModel.apps" />
+        </EntityContainer>
         <EntityType Name="apps">
           <Key>
             <PropertyRef Name="app_id" />
@@ -30,12 +32,9 @@
           <Property Name="app_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="appName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="appPrice" Type="Double" />
-          <Property Name="appRate" Type="Double" />
+          <Property Name="appAgeLimit" Type="Int32" />
           <Property Name="appImage" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityContainer Name="appStore_MorozovEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="apps" EntityType="Self.apps" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -45,11 +44,11 @@
           <EntitySetMapping Name="apps">
             <EntityTypeMapping TypeName="appStore_MorozovModel.apps">
               <MappingFragment StoreEntitySet="apps">
-                <ScalarProperty Name="app_id" ColumnName="app_id" />
-                <ScalarProperty Name="appName" ColumnName="appName" />
-                <ScalarProperty Name="appPrice" ColumnName="appPrice" />
-                <ScalarProperty Name="appRate" ColumnName="appRate" />
                 <ScalarProperty Name="appImage" ColumnName="appImage" />
+                <ScalarProperty Name="appAgeLimit" ColumnName="appAgeLimit" />
+                <ScalarProperty Name="appPrice" ColumnName="appPrice" />
+                <ScalarProperty Name="appName" ColumnName="appName" />
+                <ScalarProperty Name="app_id" ColumnName="app_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -17,7 +17,7 @@ namespace WebApplication.Models
         public int app_id { get; set; }
         public string appName { get; set; }
         public Nullable<double> appPrice { get; set; }
-        public Nullable<double> appRate { get; set; }
+        public Nullable<int> appAgeLimit { get; set; }
         public byte[] appImage { get; set; }
     }
 }

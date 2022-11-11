@@ -24,11 +24,109 @@ namespace WebApplication.Controllers
         {
             if (flag)
             {
-                return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderBy(x => x.appRate));
+                return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderBy(x => x.appAgeLimit));
             }
             else
             {
-                return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderByDescending(x => x.appRate));
+                return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderByDescending(x => x.appAgeLimit));
+            }
+        }
+
+        [Route("api/apps/search")]
+        [HttpGet]
+
+        //searchAppNamee - название приложения, order - true(asc)/false(desc), field - 0(-)/1(price)/2(age limit)/3(name)
+        public async Task<IHttpActionResult> Searchapps(string searchAppName, bool order, int field)
+        {
+            if(String.IsNullOrEmpty(searchAppName))
+            {
+                if (order)
+                {
+                    switch(field)
+                    {
+                        case 0:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)));
+                            break;
+                        case 1:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderBy(x => x.appPrice));
+                            break;
+                        case 2:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderBy(x => x.appAgeLimit));
+                            break;
+                        case 3:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderBy(x => x.appName));
+                            break;
+                        default:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)));
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (field)
+                    {
+                        case 0:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)));
+                            break;
+                        case 1:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderByDescending(x => x.appPrice));
+                            break;
+                        case 2:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderByDescending(x => x.appAgeLimit));
+                            break;
+                        case 3:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).OrderByDescending(x => x.appName));
+                            break;
+                        default:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)));
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                if (order)
+                {
+                    switch (field)
+                    {
+                        case 0:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())));
+                            break;
+                        case 1:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())).OrderBy(x => x.appPrice));
+                            break;
+                        case 2:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())).OrderBy(x => x.appAgeLimit));
+                            break;
+                        case 3:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())).OrderBy(x => x.appName));
+                            break;
+                        default:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())));
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (field)
+                    {
+                        case 0:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())));
+                            break;
+                        case 1:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())).OrderByDescending(x => x.appPrice));
+                            break;
+                        case 2:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())).OrderByDescending(x => x.appAgeLimit));
+                            break;
+                        case 3:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())).OrderByDescending(x => x.appName));
+                            break;
+                        default:
+                            return Ok(db.apps.ToList().ConvertAll(x => new modelApp(x)).Where(x => x.appName.ToLower().Contains(searchAppName.ToLower())));
+                            break;
+                    }
+                }
             }
         }
 
